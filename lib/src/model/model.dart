@@ -2,6 +2,7 @@ export 'amount/amount.dart';
 export 'auth_credentials.dart';
 export 'auth_details/authorization_details.dart';
 export 'cancellation_details/cancellation_details.dart';
+export 'card/yookassa_card.dart';
 export 'confirmation/yookassa_confirmation.dart';
 export 'create_payment_method_request/create_payment_method_request.dart';
 export 'create_payment_request/create_payment_request.dart';
