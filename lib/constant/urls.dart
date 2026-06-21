@@ -18,4 +18,11 @@ mixin Urls {
 
   /// Информация о возврате
   static const String refundInfo = '$refunds/{refundId}';
+
+  /// Базовый URL для способов оплаты (привязка карты на нулевую сумму)
+  static const String paymentMethods =
+      'https://api.yookassa.ru/v3/payment_methods';
+
+  /// Информация о способе оплаты
+  static const String paymentMethodInfo = '$paymentMethods/{paymentMethodId}';
 }

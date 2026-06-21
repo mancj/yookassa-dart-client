@@ -122,4 +122,33 @@ abstract class YookassaClient {
   Future<YookassaRefund> getRefundInfo({
     @Path() required String refundId,
   });
+
+  /// Создание объекта способа оплаты — привязка карты на нулевую сумму
+  /// (zero-amount binding) для последующих автосписаний.
+  ///
+  /// Деньги при привязке не списываются. В ответе со статусом `pending`
+  /// приходит `confirmation.confirmation_url` — ссылка на страницу ЮKassa,
+  /// куда нужно перенаправить пользователя для ввода данных карты и
+  /// прохождения 3-D Secure (срок жизни ссылки — 1 час).
+  ///
+  /// [request] - Объект запроса на создание способа оплаты
+  ///
+  /// [idempotenceKey] - Ключ идемпотентности
+  @POST(Urls.paymentMethods)
+  Future<YookassaPaymentMethodObject> createPaymentMethod({
+    @Body() required CreatePaymentMethodRequest request,
+    @Header(_idempotenceKey) String? idempotenceKey,
+  });
+
+  /// Запрос позволяет получить информацию о текущем состоянии способа оплаты
+  /// по его уникальному идентификатору. Используется как fallback к вебхуку
+  /// `payment_method.active` при ожидании завершения привязки.
+  ///
+  /// Успех: `status = active` и `saved = true`.
+  ///
+  /// [paymentMethodId] - ID способа оплаты
+  @GET(Urls.paymentMethodInfo)
+  Future<YookassaPaymentMethodObject> getPaymentMethod({
+    @Path() required String paymentMethodId,
+  });
 }

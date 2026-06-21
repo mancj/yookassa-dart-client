@@ -13,7 +13,9 @@ _YookassaItem _$YookassaItemFromJson(Map<String, dynamic> json) =>
       amount: Amount.fromJson(json['amount'] as Map<String, dynamic>),
       paymentSubject: json['payment_subject'] as String?,
       paymentMode: $enumDecodeNullable(
-          _$YookassaPaymentModeEnumMap, json['payment_mode']),
+        _$YookassaPaymentModeEnumMap,
+        json['payment_mode'],
+      ),
       vatCode: json['vat_code'] as String? ?? '1',
     );
 
